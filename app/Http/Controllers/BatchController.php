@@ -2,10 +2,22 @@
 
 namespace App\Http\Controllers;
 use App\Batch;
+use App\Student;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class BatchController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +25,9 @@ class BatchController extends Controller
      */
     public function index()
     {
-        $batchs= Batch::all();
+
+          $batchs = DB::table('batches')->where('flag', 1)->get();
+        //$batchs= Batch::all();
         return view('batch',['batchs'=>$batchs,'layout'=>'index']);
 
     }
@@ -25,7 +39,8 @@ class BatchController extends Controller
      */
     public function create()
     {
-        $batchs= Batch::all();
+
+        $batchs = DB::table('batches')->where('flag', 1)->get();
         return view('batch',['batchs'=>$batchs,'layout'=>'create']);
     }
 
@@ -43,8 +58,22 @@ class BatchController extends Controller
         $batch->course_desc=$request->input('course_desc');
         $batch->time=$request->input('time');
         $batch->capacity=$request->input('capacity');
-        $batch->save();
-         return redirect('/batch');
+        $batch->flag=1;
+
+        $cB=DB::table('batches')
+        ->where('name',$request->input('name'))
+        ->orWhere('time', $request->input('time'))
+        ->count();
+        if($cB<=0)
+        {
+            $batch->save();
+            return redirect('/batch');
+        }
+        else{
+            return redirect()->back() ->with('alert', 'Time or Section name clash! Please check!!!');
+        }
+        
+
     }
 
     /**
@@ -53,11 +82,11 @@ class BatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showstudents($bid)
     {
-        $batch=Batch::find($id);
-        $batchs= Batch::all();
-        return view('batch',['batchs'=>$batchs,'batch'=>$batch,'layout'=>'show']);
+        $students= Student::with('batch')->where('batchid', $bid)->get();
+        //$students= DB::table('students')->get();
+        return view('batch',['students'=>$students, 'bid'=>$bid,'layout'=>'index1']);
     }
 
     /**
@@ -69,7 +98,7 @@ class BatchController extends Controller
     public function edit($id)
     {
         $batch=Batch::find($id);
-        $batchs= Batch::all();
+        $batchs = DB::table('batches')->where('flag', 1)->get();
         return view('batch',['batchs'=>$batchs,'batch'=>$batch,'layout'=>'edit']);
     }
 
@@ -88,8 +117,20 @@ class BatchController extends Controller
         $batch->course_desc=$request->input('course_desc');
         $batch->time=$request->input('time');
         $batch->capacity=$request->input('capacity');
-        $batch->save();
-        return redirect('/batch');
+
+        $cB=DB::table('batches')
+        ->Where('time', $request->input('time'))
+        ->Where('name', '<>', $request->input('name'))
+        ->count();
+        if($cB<=0)
+        {
+            $batch->save();
+            return redirect('/batch');
+        }
+        else{
+            return redirect()->back() ->with('alert', 'Time clash! Please check!!!');
+        }
+
     }
 
     /**
@@ -100,8 +141,19 @@ class BatchController extends Controller
      */
     public function destroy($id)
     {
+        
         $batch=Batch::find($id);
-        $batch->delete();
-         return redirect('/batch');
+        $batch->flag=0;
+        $mytime = date('Y-m-d H:i:s');
+        $batch->name=date('Y-m-d').' (Ex)';
+        $batch->time="none";
+
+        $students= Student::with('batch')->where('batchid', '=', $id)->update(['speciality' => 'Old']);       
+
+        $batch->save();
+        return redirect('/batch');
+
+
     }
+    
 }

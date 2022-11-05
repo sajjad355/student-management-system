@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use APP\Student;
+use APP\Payment;
+
 
 class Batch extends Model
 {
