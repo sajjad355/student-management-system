@@ -3,15 +3,13 @@
           ?>
 <script>
 function myFunction() {
-  alert("Do you want to delete this batch?");
+  alert("Do you want to hide this batch?");
 }
 </script>
 
 <div class="card mb-3">
-  <img src="https://cdn.pixabay.com/photo/2015/05/19/14/55/educational-773651_960_720.jpg" class="card-img-top" alt="None">
   <div class="card-body">
-    <h5 class="card-title">All<strong> Batches</strong></h5>
-    <p class="card-text"><strong>Information</strong> of my Batches</p>
+    <h5 class="card-title">Running<strong> Batches</strong> of<strong> Sajjad's</strong> sir.</h5>
 
     <div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xs table-responsive-xl ">
 
@@ -23,7 +21,6 @@ function myFunction() {
       <th scope="col">Course Description</th>
       <th scope="col">Time</th>
       <th scope="col">Capacity</th>
-      <th scope="col">Operations</th>
     </tr>
   </thead>
   <tbody>
@@ -35,14 +32,7 @@ function myFunction() {
       <td>{{$batch->course_desc}}</td>
       <td>{{$batch->time}}</td>
       <td>{{$batch->capacity}}</td>
-<!--       <td>{{$batch->current}}/{{$batch->capacity}}</td> -->
-      <td>
-           <a href= "{{url('/showstudents/'.$batch->id)}}" class="btn btn-sm btn-info" >All students</a>
-           <a href="{{url('/editbatch/'.$batch->id)}}" class="btn btn-sm btn-warning"> Edit </a>
-           <a href="{{url('/destroybatch/'.$batch->id)}}" class="btn btn-sm btn-danger" onclick="myFunction()"> Delete </a>
 
-
-      </td>
     </tr>
     <?php $count=1; ?>  
     @endforeach

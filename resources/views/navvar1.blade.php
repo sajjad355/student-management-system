@@ -20,17 +20,14 @@
     
     <div class="navbar-nav">
 
-      <a class="nav-item nav-link active" href="{{url('/report')}}">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link active" href="{{url('/create')}}">New Student</a>   
+  
       <a class="nav-item nav-link active" href="{{url('/batch')}}" >Batch</a>
-      <a class="nav-item nav-link active" href="{{url('/createbatch')}}" >New Batch</a>
-      <a class="nav-item nav-link active" href="{{url('/notice')}}" >Notice</a>
+
+      <a class="nav-item nav-link active" href="" >Chat</a>
+
+
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     
+   
 
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -55,11 +52,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background-color:rgb(0, 204, 204)">
 
                                 <span style="bottom-border:1">
-                                <a class="dropdown-item" href="{{url('/Profile')}}" >
-                                 
-                                       <span style=""> {{ __('My profile') }} </span>
 
-                                    </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
